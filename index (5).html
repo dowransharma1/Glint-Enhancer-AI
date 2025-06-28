@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello, World!</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+      <h1 class="title">Hello World! </h1>
+      <p id="currentTime"></p>
+      <script src="script.js"></script>
+  </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GlintEnhancer - AI Photo Enhancement</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background: #000;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+    .logo {
+      font-size: 2rem;
+      font-weight: 600;
+      color: gold;
+      margin-bottom: 1rem;
+    }
+    .uploader {
+      background: #111;
+      border: 2px dashed gold;
+      border-radius: 15px;
+      padding: 2rem;
+      width: 100%;
+      max-width: 500px;
+      text-align: center;
+    }
+    input[type="file"] {
+      display: none;
+    }
+    label {
+      background: gold;
+      color: black;
+      padding: 0.7rem 1.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-bottom: 1rem;
+      display: inline-block;
+    }
+    #preview {
+      margin-top: 1rem;
+      width: 100%;
+      max-width: 300px;
+      display: none;
+      border-radius: 10px;
+    }
+    button {
+      margin-top: 1rem;
+      padding: 0.7rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      background: gold;
+      color: black;
+      cursor: pointer;
+    }
+    #loading {
+      margin-top: 1rem;
+      display: none;
+      font-style: italic;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <div class="logo">GlintEnhancer</div>
+  <div class="uploader">
+    <label for="imageUpload">📤 Upload Image</label>
+    <input type="file" id="imageUpload" accept="image/*">
+    <img id="preview" />
+    <div>
+      <button id="enhanceBtn">✨ Enhance Photo</button>
+    </div>
+    <div id="loading">⏳ Processing your image... Please wait.</div>
+    <div>
+      <button id="downloadBtn" style="display:none;">📥 Download Enhanced</button>
+    </div>
+  </div>
+
+  <script>
+    const imageUpload = document.getElementById('imageUpload');
+    const preview = document.getElementById('preview');
+    const enhanceBtn = document.getElementById('enhanceBtn');
+    const loading = document.getElementById('loading');
+    const downloadBtn = document.getElementById('downloadBtn');
+
+    let enhancedImage = null;
+
+    imageUpload.addEventListener('change', (event) => {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          preview.src = reader.result;
+          preview.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    enhanceBtn.addEventListener('click', () => {
+      if (!preview.src) return alert('Please upload an image first.');
+      loading.style.display = 'block';
+      setTimeout(() => {
+        loading.style.display = 'none';
+        enhancedImage = preview.src; // Simulate enhancement
+        downloadBtn.style.display = 'inline-block';
+        alert('Your photo has been enhanced!');
+      }, 2000); // Simulate processing time
+    });
+
+    downloadBtn.addEventListener('click', () => {
+      const link = document.createElement('a');
+      link.href = enhancedImage;
+      link.download = 'enhanced_photo.png';
+      link.click();
+    });
+  </script>
+</body>
+</html>
